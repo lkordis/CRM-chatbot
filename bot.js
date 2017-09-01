@@ -52,7 +52,15 @@ bot.dialog('help', require('./BotDialogs/help.js'))
 
 bot.dialog('service', require('./BotDialogs/service.js'))
 
-//Postback, events
+bot.dialog('support', require('./BotDialogs/support.js'))
+    .triggerAction({
+        matches: 'zahtjev'
+    })
+
+bot.dialog('login', require('./BotDialogs/login.js'))
+bot.dialog('malfunction',require('./BotDialogs/malfunction.js'))
+
+//Events
 bot.on('error', function (e) {
     console.log('Došlo je do pogreške', e);
 });
