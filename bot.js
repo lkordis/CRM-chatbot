@@ -30,6 +30,9 @@ bot.dialog('/',
 ).beginDialogAction('RootHelpAction', 'root_help', { matches: 'help' })
 
 bot.dialog("greeting", require('./BotDialogs/greeting.js'))
+    .triggerAction({
+        matches: 'pozdrav'
+    })
 
 bot.dialog('info_root', require('./BotDialogs/info_root.js'))
     .triggerAction({
@@ -43,71 +46,13 @@ bot.dialog('account', require('./BotDialogs/account.js'))
     .beginDialogAction('RacunHelpAction', 'racun_help', { matches: 'help' })
 
 bot.dialog('help', require('./BotDialogs/help.js'))
+    .triggerAction({
+        matches: 'help'
+    })
 
 bot.dialog('service', require('./BotDialogs/service.js'))
 
 //Postback, events
-
-bot.dialog('ponuda_help', (session) => {
-    session.endDialog("Upišite net, tv, telefon ili sve.")
-})
-
-bot.dialog('root_help', (session) => {
-    var msg = new builder.Message(session).textFormat('xml')
-    if (session.message.address.channelId === 'skype') msg.text("<b>Pomoć!</b>")
-    else { msg.text("Pomoć") }
-
-    session.send(msg).endDialog()
-})
-
-bot.dialog('ponuda_postback',
-    function (session, args, next) {
-        session.replaceDialog('offer')
-    }
-).triggerAction({
-    matches: /^ponuda_postback$/i,
-});
-
-bot.dialog('racun_postback',
-    function (session) {
-        session.replaceDialog('account')
-    }
-).triggerAction({
-    matches: /^racun_postback$/i,
-})
-
-bot.dialog('pomoc_postback',
-    function (session) {
-        session.replaceDialog('help')
-    }
-).triggerAction({
-    matches: /^pomoc_postback$/i,
-})
-
-bot.dialog('ponuda_postack',
-    function (session) {
-        session.replaceDialog('service')
-    }
-).triggerAction({
-    matches: /^usluga_postback$/i,
-})
-
-bot.dialog('add_net_postback', require('./BotDialogs/add_to_cart').add_net)
-    .triggerAction({
-        matches: /net\d+/i,
-        onSelectAction: (session, args, next) => {
-            session.beginDialog(args.action, args);
-        }
-    })
-
-bot.dialog('add_all_postback', require('./BotDialogs/add_to_cart').add_all)
-    .triggerAction({
-        matches: /paket\d+/i,
-        onSelectAction: (session, args, next) => {
-            session.beginDialog(args.action, args);
-        }
-    })
-
 bot.on('error', function (e) {
     console.log('Došlo je do pogreške', e);
 });
@@ -122,5 +67,11 @@ bot.on('conversationUpdate', function (message) {
     }
 });
 
-bot = extend(bot, require('./BotDialogs/service_postbacks.js')(bot))
+bot = extend(bot,
+    require('./BotDialogs/service_postbacks.js')(bot),
+    require('./BotDialogs/context_help.js')(bot),
+    require('./BotDialogs/cart_postbacks.js')(bot),
+    require('./BotDialogs/menu_postbacks.js')(bot)
+)
+
 module.exports = bot
