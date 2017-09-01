@@ -14,6 +14,7 @@
     "botbuilder": "^3.9.1",
     "botbuilder-quickreplies": "^1.1.1",
     "botbuilder-wit": "^2.0.8",
-    "restify": "^5.2.0"
+    "restify": "^5.2.0",
+    "restify-plugins": "^1.6.0"
   }
 }

@@ -1,7 +1,7 @@
 const builder = require('botbuilder');
 const { WitRecognizer } = require('botbuilder-wit');
 const fs = require('fs')
-const extend = require('util')._extend;
+const extend = require('util')._extend
 
 const Wit = new WitRecognizer('PMFEF3TFSSX3O6TFWIDXHC4Y4AYD7WX2')
 
@@ -58,7 +58,7 @@ bot.dialog('support', require('./BotDialogs/support.js'))
     })
 
 bot.dialog('login', require('./BotDialogs/login.js'))
-bot.dialog('malfunction',require('./BotDialogs/malfunction.js'))
+bot.dialog('malfunction', require('./BotDialogs/malfunction.js'))
 
 //Events
 bot.on('error', function (e) {

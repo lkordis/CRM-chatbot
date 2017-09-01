@@ -10,7 +10,7 @@ module.exports = [
         }
     },
     (session, args, next) => {
-        session.send(`Dobrodošli, ${session.userData.username}.`)
+        session.send(`Dobrodošli, ${session.userData.name}.`)
         var msg = SuggestedActionsBuilder(session,
             [
                 { postback: 'kosarica_postback', title: 'Moja košarica' },
