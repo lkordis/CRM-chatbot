@@ -6,10 +6,10 @@ module.exports =
         var msg = SuggestedActionsBuilder(session,
             [
                 { postback: 'internet_service', title: 'Internet' },
-                { postback: 'phone_postback', title: 'Telefon' },
-                { postback: 'tv_postback', title: 'Tv' },
-                { postback: 'host_postback', title: 'Web hosting' },
-                { postback: 'intruction_postback', title: 'Upute' }
+                { postback: 'phone_service', title: 'Telefon' },
+                { postback: 'tv_service', title: 'Tv' },
+                { postback: 'host_service', title: 'Web hosting' },
+                { postback: 'intruction_service', title: 'Upute' }
             ]
         ).text('Odaberite željenu uslugu')
 

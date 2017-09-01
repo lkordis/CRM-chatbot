@@ -1,6 +1,7 @@
-var builder = require('botbuilder');
+const builder = require('botbuilder');
 const { WitRecognizer } = require('botbuilder-wit');
 const fs = require('fs')
+const extend = require('util')._extend;
 
 const Wit = new WitRecognizer('PMFEF3TFSSX3O6TFWIDXHC4Y4AYD7WX2')
 
@@ -10,9 +11,9 @@ var connector = new builder.ChatConnector({
     appPassword: "WfzcaGghpAVUPtxeMdktsQc"
 });
 
-var bot = new builder.UniversalBot(connector, (session) => {
-    session.send("Pitajte me bilo što!")
-});
+var bot = new builder.UniversalBot(connector);
+
+bot.set('persistConversationData', true);
 
 bot.recognizer(Wit);
 
@@ -21,17 +22,19 @@ var quickReplies = require('botbuilder-quickreplies');
 quickReplies.LocationPrompt.create(bot);
 bot.use(quickReplies.QuickRepliesMiddleware);
 
-//TODO: input check
+//Bot dialogs
+bot.dialog('/',
+    function (session) {
+        session.send("Pitajte bilo što, ili upišite 'pomoć'.")
+    }
+).beginDialogAction('RootHelpAction', 'root_help', { matches: 'help' })
+
 bot.dialog("greeting", require('./BotDialogs/greeting.js'))
-    .triggerAction({
-        matches: 'pozdrav'
-    })
 
 bot.dialog('info_root', require('./BotDialogs/info_root.js'))
     .triggerAction({
         matches: 'info'
     })
-    .beginDialogAction('RootHelpAction', 'root_help', { matches: 'help' })
 
 bot.dialog('offer', require('./BotDialogs/offer.js'))
     .beginDialogAction('PonudaHelpAction', 'ponuda_help', { matches: 'help' })
@@ -47,6 +50,14 @@ bot.dialog('service', require('./BotDialogs/service.js'))
 
 bot.dialog('ponuda_help', (session) => {
     session.endDialog("Upišite net, tv, telefon ili sve.")
+})
+
+bot.dialog('root_help', (session) => {
+    var msg = new builder.Message(session).textFormat('xml')
+    if (session.message.address.channelId === 'skype') msg.text("<b>Pomoć!</b>")
+    else { msg.text("Pomoć") }
+
+    session.send(msg).endDialog()
 })
 
 bot.dialog('ponuda_postback',
@@ -71,6 +82,14 @@ bot.dialog('pomoc_postback',
     }
 ).triggerAction({
     matches: /^pomoc_postback$/i,
+})
+
+bot.dialog('ponuda_postack',
+    function (session) {
+        session.replaceDialog('service')
+    }
+).triggerAction({
+    matches: /^usluga_postback$/i,
 })
 
 bot.dialog('add_net_postback', require('./BotDialogs/add_to_cart').add_net)
@@ -103,4 +122,5 @@ bot.on('conversationUpdate', function (message) {
     }
 });
 
+bot = extend(bot, require('./BotDialogs/service_postbacks.js')(bot))
 module.exports = bot
