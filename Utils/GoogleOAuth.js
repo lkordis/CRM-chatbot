@@ -12,32 +12,36 @@ var scopes = [
     'https://www.googleapis.com/auth/calendar'
 ];
 
-function getPlus(oauth2Client, bot, adress) {
+function getPlus(oauth2Client, bot, adress, dialog) {
     var plus = google.plus('v1');
 
     plus.people.get({
         userId: 'me',
         auth: oauth2Client
     }, function (err, response) {
-        console.log(response)
         // handle err and response
         bot.beginDialog(adress, "login",
             {
                 loggedIn: true,
-                name: response.displayName
+                name: response.displayName,
+                dialog_name: dialog
             }
         );
     });
 }
 
-module.exports.auth_url = session => {
+module.exports.auth_url = (session, dialog) => {
+    console.log(JSON.stringify({
+        adress: session.message.address,
+        dialog_name: dialog
+    }))
     return oauth2Client.generateAuthUrl({
         // 'online' (default) or 'offline' (gets refresh_token)
         access_type: 'online',
 
         // If you only need one scope you can pass it as a string
         scope: scopes,
-    }) + "&state=" + encodeURIComponent(JSON.stringify(session.message.address));
+    }) + "&state=" + encodeURIComponent(JSON.stringify({ adress: session.message.address, dialog_name: dialog }))
 }
 
 module.exports.getPlus = getPlus

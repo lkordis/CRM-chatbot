@@ -6,7 +6,7 @@ module.exports = [
         if (session.userData.logged_in) {
             next(session.userData.username)
         } else {
-            session.beginDialog('login')
+            session.beginDialog('login', { dialog_name: 'account' })
         }
     },
     (session, args, next) => {

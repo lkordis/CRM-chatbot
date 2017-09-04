@@ -13,7 +13,7 @@ var connector = new builder.ChatConnector({
 
 var bot = new builder.UniversalBot(connector);
 
-bot.set('persistConversationData', true);
+bot.set(`persistUserData`, false);
 
 bot.recognizer(Wit);
 
@@ -76,10 +76,10 @@ bot.on('conversationUpdate', function (message) {
 });
 
 bot = extend(bot,
-    require('./BotDialogs/service_postbacks.js')(bot),
+    require('./BotDialogs/Postbacks/service_postbacks.js')(bot),
     require('./BotDialogs/context_help.js')(bot),
-    require('./BotDialogs/cart_postbacks.js')(bot),
-    require('./BotDialogs/menu_postbacks.js')(bot)
+    require('./BotDialogs/Postbacks/cart_postbacks.js')(bot),
+    require('./BotDialogs/Postbacks/menu_postbacks.js')(bot)
 )
 
 module.exports = bot

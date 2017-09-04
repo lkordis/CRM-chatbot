@@ -1,5 +1,5 @@
 module.exports = bot => {
-    bot.dialog('add_net_postback', require('./add_to_cart').add_net)
+    bot.dialog('add_net_postback', require('../add_to_cart').add_net)
         .triggerAction({
             matches: /net\d+/i,
             onSelectAction: (session, args, next) => {
@@ -7,7 +7,7 @@ module.exports = bot => {
             }
         })
 
-    bot.dialog('add_all_postback', require('./add_to_cart').add_all)
+    bot.dialog('add_all_postback', require('../add_to_cart').add_all)
         .triggerAction({
             matches: /paket\d+/i,
             onSelectAction: (session, args, next) => {

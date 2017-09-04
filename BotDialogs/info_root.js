@@ -3,7 +3,18 @@ const fs = require('fs');
 
 var quickReplies = require('botbuilder-quickreplies');
 
-//TODO preseliti ovo s ponudama u ponuda dijalog
+function entityCheck(session, results, dialog) {
+    if (results.intent.entities[0].rawEntity.entities) {
+        var value = results.intent.entities[0].rawEntity.entities.ponuda_type[0].value
+        var args = {}
+        args.response = value
+        session.replaceDialog(dialog, args)
+    }
+    else {
+        session.replaceDialog(dialog)
+    }
+}
+
 module.exports = [
     (session, results) => {
         fs.writeFile('./data.json', JSON.stringify(results), 'utf-8');
@@ -16,18 +27,10 @@ module.exports = [
                 session.replaceDialog('account')
                 break;
             case 'ponuda':
-                if (results.intent.entities[0].rawEntity.entities) {
-                    var value = results.intent.entities[0].rawEntity.entities.ponuda_type[0].value
-                    var args = {}
-                    args.response = value
-                    session.replaceDialog('offer', args)
-                }
-                else {
-                    session.replaceDialog('offer')
-                }
+                entityCheck(session, results, 'offer')
                 break;
             case 'usluga':
-                session.replaceDialog('service')
+                entityCheck(session, results, 'service')
                 break;
             default:
                 break;
