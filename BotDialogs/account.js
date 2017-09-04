@@ -10,13 +10,12 @@ module.exports = [
         }
     },
     (session, args, next) => {
-        session.send(`Dobrodošli, ${session.userData.name}.`)
         var msg = SuggestedActionsBuilder(session,
             [
                 { postback: 'kosarica_postback', title: 'Moja košarica' },
                 { postback: 'stanje_postback', title: 'Stanje računa' }
             ]
-        )
+        ).text(`Dobrodošli, ${session.userData.name}.`)
 
         session.send(msg).endDialog()
     }

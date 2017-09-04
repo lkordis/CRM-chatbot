@@ -13,9 +13,7 @@ server.post('/api/messages', bot.connector('*').listen());
 
 //OAuth Google+ login
 server.get('/oauthcallback', (req, res, next) => {
-    console.log(req.query.code)
-    console.log(req.query.state)
-    var adress = req.query.state
+    var adress = JSON.parse(req.query.state)
     var oauth2Client = require('./Utils/GoogleOAuth.js').oauth2Client
     oauth2Client.getToken(req.query.code, function (err, tokens) {
         // Now tokens contains an access_token and an optional refresh_token. Save them.
@@ -23,5 +21,6 @@ server.get('/oauthcallback', (req, res, next) => {
             oauth2Client.setCredentials(tokens);
             require('./Utils/GoogleOAuth.js').getPlus(oauth2Client, bot, adress)
         }
+        res.send(200, 'Hvala na prijavi!');
     });
 })

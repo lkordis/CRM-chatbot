@@ -37,8 +37,7 @@ module.exports.auth_url = session => {
 
         // If you only need one scope you can pass it as a string
         scope: scopes,
-        state: encodeURIComponent(JSON.stringify(session.message.adress))
-    });
+    }) + "&state=" + encodeURIComponent(JSON.stringify(session.message.address));
 }
 
 module.exports.getPlus = getPlus
