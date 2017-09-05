@@ -1,3 +1,5 @@
+//TODO srediti regexe jer su id-i stringovi
+
 module.exports = bot => {
     bot.dialog('add_net_postback', require('../add_to_cart').add_net)
         .triggerAction({

@@ -1,44 +1,51 @@
 var builder = require('botbuilder');
+const { getData } = require('../Utils/DummyApi.js')
 
-function RichCardBuilder(session, data) {
-    var msg = new builder.Message(session);
-    msg.attachmentLayout(builder.AttachmentLayout.carousel)
+function RichCardBuilder(session, url, callback) {
+    getData(url)
+        .then(data => {
+            var msg = new builder.Message(session);
+            msg.attachmentLayout(builder.AttachmentLayout.carousel)
 
-    msg.attachments(
-        data.map(value => {
-            return new builder.HeroCard(session)
-                .images(value.image_url.map(d => {
-                    return builder.CardImage.create(session, d)
-                }))
-                .title(value.title)
-                .subtitle(value.price)
-                .buttons([
-                    builder.CardAction.openUrl(session, value.details_url, 'Detalji'),
-                    builder.CardAction.postBack(session, `${value.type}${value.id}`, 'Dodaj u košaricu')
-                ])
-                .text(value.details_text)
+            msg.attachments(
+                data.map(value => {
+                    return new builder.HeroCard(session)
+                        .images(value.image_url.map(d => {
+                            return builder.CardImage.create(session, d)
+                        }))
+                        .title(value.title)
+                        .subtitle(value.price)
+                        .buttons([
+                            builder.CardAction.openUrl(session, value.details_url, 'Detalji'),
+                            builder.CardAction.postBack(session, `${value.type}${value.id}`, 'Dodaj u košaricu')
+                        ])
+                        .text(value.details)
+                })
+            )
+
+            callback(msg);
         })
-    )
-
-    return msg;
 }
 
-function TextCardBuilder(session, data) {
-    var msg = new builder.Message(session);
-    msg.attachmentLayout(builder.AttachmentLayout.list)
+function TextCardBuilder(session, url, callback) {
+    getData(url)
+        .then(data => {
+            var msg = new builder.Message(session);
+            msg.attachmentLayout(builder.AttachmentLayout.list)
 
-    msg.attachments(
-        data.map(value => {
-            return new builder.HeroCard(session)
-                .title(value.title)
-                .buttons([
-                    builder.CardAction.openUrl(session, value.details_url, 'Detalji'),
-                ])
-                .text(value.details)
+            msg.attachments(
+                data.map(value => {
+                    return new builder.HeroCard(session)
+                        .title(value.title)
+                        .buttons([
+                            builder.CardAction.openUrl(session, value.details_url, 'Detalji'),
+                        ])
+                        .text(value.details)
+                })
+            )
+
+            callback(msg);
         })
-    )
-
-    return msg;
 }
 
 function SuggestedActionsBuilder(session, data) {
