@@ -22,13 +22,14 @@ var quickReplies = require('botbuilder-quickreplies');
 quickReplies.LocationPrompt.create(bot);
 bot.use(quickReplies.QuickRepliesMiddleware);
 
-//Bot dialogs
+//Root dialog
 bot.dialog('/',
     function (session) {
         session.send("Pitajte bilo što, ili upišite 'pomoć'.")
     }
 ).beginDialogAction('RootHelpAction', 'root_help', { matches: 'help' })
 
+// Trigger action dialogs
 bot.dialog("greeting", require('./BotDialogs/greeting.js'))
     .triggerAction({
         matches: 'pozdrav'
@@ -38,27 +39,28 @@ bot.dialog('info_root', require('./BotDialogs/info_root.js'))
     .triggerAction({
         matches: 'info'
     })
-
-bot.dialog('offer', require('./BotDialogs/offer.js'))
-    .beginDialogAction('PonudaHelpAction', 'ponuda_help', { matches: 'help' })
-
-bot.dialog('account', require('./BotDialogs/account.js'))
-    .beginDialogAction('RacunHelpAction', 'racun_help', { matches: 'help' })
+bot.dialog('support', require('./BotDialogs/support.js'))
+    .triggerAction({
+        matches: 'zahtjev'
+    })
 
 bot.dialog('help', require('./BotDialogs/help.js'))
     .triggerAction({
         matches: 'help'
     })
 
+//Begin dialog actions - contextual help
+bot.dialog('offer', require('./BotDialogs/offer.js'))
+    .beginDialogAction('PonudaHelpAction', 'ponuda_help', { matches: 'help' })
+
+bot.dialog('account', require('./BotDialogs/account.js'))
+    .beginDialogAction('RacunHelpAction', 'racun_help', { matches: 'help' })
+
+//Normal dialogs
 bot.dialog('service', require('./BotDialogs/service.js'))
-
-bot.dialog('support', require('./BotDialogs/support.js'))
-    .triggerAction({
-        matches: 'zahtjev'
-    })
-
 bot.dialog('login', require('./BotDialogs/login.js'))
 bot.dialog('malfunction', require('./BotDialogs/malfunction.js'))
+bot.dialog('instructions', require('./BotDialogs/instructions.js'))
 
 //Events
 bot.on('error', function (e) {
@@ -79,7 +81,9 @@ bot = extend(bot,
     require('./BotDialogs/Postbacks/service_postbacks.js')(bot),
     require('./BotDialogs/context_help.js')(bot),
     require('./BotDialogs/Postbacks/cart_postbacks.js')(bot),
-    require('./BotDialogs/Postbacks/menu_postbacks.js')(bot)
+    require('./BotDialogs/Postbacks/menu_postbacks.js')(bot),
+    require('./BotDialogs/Postbacks/support_postbacks.js')(bot),
+    require('./BotDialogs/Postbacks/instruction_type_postbacks.js')(bot)
 )
 
 module.exports = bot

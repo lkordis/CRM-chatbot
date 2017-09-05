@@ -15,7 +15,6 @@ server.post('/api/messages', bot.connector('*').listen());
 server.get('/oauthcallback', (req, res, next) => {
     var adress = JSON.parse(req.query.state).adress
     var dialog = JSON.parse(req.query.state).dialog_name
-    console.log(JSON.parse(req.query.state))
 
     var oauth2Client = require('./Utils/GoogleOAuth.js').oauth2Client
     oauth2Client.getToken(req.query.code, function (err, tokens) {

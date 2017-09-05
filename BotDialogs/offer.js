@@ -13,7 +13,6 @@ module.exports = [
         else { builder.Prompts.text(session, "Koja Vas usluga zanima?") }
     },
     (session, results) => {
-        console.log(results.response)
         Wit.witClient.message(results.response).then(data => {
             // fs.writeFile('./data.json', JSON.stringify(data), 'utf-8');
             if (data.entities.ponuda_type) {
@@ -25,7 +24,6 @@ module.exports = [
                         session.send(msg).endDialog()
                         break;
                     case 'internet':
-                        console.log("tu sam")
                         var msg = RichCardBuilder(session, getNet(require('../Data/ponuda_internet.json').data))
                         session.send(msg).endDialog()
                         break;

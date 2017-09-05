@@ -16,8 +16,6 @@ module.exports.add_net =
         else { session.conversationData.basket = [net] }
         session.save()
 
-        console.log(session.conversationData)
-
         session.endDialog(`Paket ${net.title} dodan u košaricu.`)
     }
 
@@ -37,8 +35,6 @@ module.exports.add_all =
         }
         else { session.conversationData.basket = [paket] }
         session.save()
-
-        console.log(session.conversationData)
 
         session.endDialog(`Paket ${paket.title} dodan u košaricu.`)
     }

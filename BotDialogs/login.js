@@ -2,7 +2,6 @@ var builder = require('botbuilder')
 
 module.exports = [
     (session, args, next) => {
-        console.log(args)
         if (args.loggedIn) {
             session.userData.loggedIn = args.loggedIn
             session.userData.name = args.name

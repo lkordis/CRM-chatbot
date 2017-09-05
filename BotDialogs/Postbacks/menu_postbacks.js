@@ -17,7 +17,7 @@ module.exports = bot => {
 
     bot.dialog('pomoc_postback',
         function (session) {
-            session.replaceDialog('help')
+            session.replaceDialog('support')
         }
     ).triggerAction({
         matches: /^pomoc_postback$/i,

@@ -31,10 +31,6 @@ function getPlus(oauth2Client, bot, adress, dialog) {
 }
 
 module.exports.auth_url = (session, dialog) => {
-    console.log(JSON.stringify({
-        adress: session.message.address,
-        dialog_name: dialog
-    }))
     return oauth2Client.generateAuthUrl({
         // 'online' (default) or 'offline' (gets refresh_token)
         access_type: 'online',
