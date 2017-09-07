@@ -1,17 +1,19 @@
-var builder = require('botbuilder')
+var builder = require('botbuilder'),
+    { loginUrl } = require('../Utils/DummyApi')
 
 module.exports = [
     (session, args, next) => {
-        if (args.loggedIn) {
-            session.userData.loggedIn = args.loggedIn
-            session.userData.name = args.name
+        if (args.user) {
+            session.conversationData.loggedIn = true
+            session.conversationData.name = args.user.profile.firstName
+            session.conversationData.token = args.token
             session.replaceDialog(args.dialog_name)
         }
-        if (session.userData.loggedIn) { session.endDialog() }
+        if (session.conversationData.loggedIn) { session.endDialog() }
         else {
             var msg = new builder.Message(session)
                 .attachments([
-                    new builder.SigninCard(session).button('Prijava', require('../Utils/GoogleOAuth.js').auth_url(session, args.dialog_name))
+                    new builder.SigninCard(session).button('Prijava', loginUrl(session.message.address, args.dialog_name))
                         .text('Moj račun')
                 ])
             session.send(msg)

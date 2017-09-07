@@ -1,8 +1,9 @@
 var builder = require('botbuilder');
 const fs = require('fs')
 
-const urls = require('../constants.json')
-const { RichCardBuilder } = require('../Utils/StructuredMessage.js')
+const urls = require('../constants.js'),
+    { getData } = require('../Utils/DummyApi'),
+    { RichCardBuilder } = require('../Utils/StructuredMessage.js')
 
 const { WitRecognizer } = require('botbuilder-wit');
 const Wit = new WitRecognizer('PMFEF3TFSSX3O6TFWIDXHC4Y4AYD7WX2')
@@ -20,14 +21,18 @@ module.exports = [
 
                 switch (value) {
                     case 'sve':
-                        RichCardBuilder(session, `${urls.product_url}/paket`, (msg) => {
-                            session.send(msg).endDialog()
-                        })
+                        getData(`${urls.product_url}/paket`)
+                            .then(data => {
+                                var msg = RichCardBuilder(session, data)
+                                session.send(msg).endDialog()
+                            })
                         break;
                     case 'internet':
-                        RichCardBuilder(session, `${urls.product_url}/net`, (msg) => {
-                            session.send(msg).endDialog()
-                        })
+                        getData(`${urls.product_url}/net`)
+                            .then(data => {
+                                var msg = RichCardBuilder(session, data)
+                                session.send(msg).endDialog()
+                            })
                         break;
                     case 'tv':
                         session.endDialog("Ponude za tv")

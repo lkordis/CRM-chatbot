@@ -1,10 +1,12 @@
-var { TextCardBuilder } = require('../../Utils/StructuredMessage.js')
-const urls = require('../../constants.json')
+var { TextCardBuilder } = require('../../Utils/StructuredMessage.js'),
+    { getData } = require('../../Utils/DummyApi'),
+    urls = require('../../constants.js')
 
 module.exports = bot => {
     bot.dialog('internet_service',
         function (session) {
-            var msg = TextCardBuilder(session, `${urls.service_url}/internet`, (msg) => {
+            getData(`${urls.service_url}/internet`).then(data => {
+                var msg = TextCardBuilder(session, data)
                 session.endDialog(msg)
             })
         }
@@ -14,7 +16,8 @@ module.exports = bot => {
 
     bot.dialog('phone_service',
         function (session) {
-            var msg = TextCardBuilder(session, `${urls.service_url}/internet`, (msg) => {
+            getData(`${urls.service_url}/phone`).then(data => {
+                var msg = TextCardBuilder(session, data)
                 session.endDialog(msg)
             })
         }
@@ -24,7 +27,8 @@ module.exports = bot => {
 
     bot.dialog('data_service',
         function (session) {
-            var msg = TextCardBuilder(session, `${urls.service_url}/internet`, (msg) => {
+            getData(`${urls.service_url}/data`).then(data => {
+                var msg = TextCardBuilder(session, data)
                 session.endDialog(msg)
             })
         }
@@ -34,7 +38,8 @@ module.exports = bot => {
 
     bot.dialog('host_service',
         function (session) {
-            var msg = TextCardBuilder(session, `${urls.service_url}/internet`, (msg) => {
+            getData(`${urls.service_url}/hosting`).then(data => {
+                var msg = TextCardBuilder(session, data)
                 session.endDialog(msg)
             })
         }

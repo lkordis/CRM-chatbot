@@ -83,7 +83,8 @@ bot = extend(bot,
     require('./BotDialogs/Postbacks/cart_postbacks.js')(bot),
     require('./BotDialogs/Postbacks/menu_postbacks.js')(bot),
     require('./BotDialogs/Postbacks/support_postbacks.js')(bot),
-    require('./BotDialogs/Postbacks/instruction_type_postbacks.js')(bot)
+    require('./BotDialogs/Postbacks/instruction_type_postbacks.js')(bot),
+    require('./BotDialogs/Postbacks/account_postbacks')(bot)
 )
 
 module.exports = bot

@@ -1,8 +1,10 @@
-var { TextCardBuilder } = require('../../Utils/StructuredMessage.js')
+var { TextCardBuilder } = require('../../Utils/StructuredMessage.js'),
+    { getData } = require('../../Utils/DummyApi')
 
 module.exports = bot => {
     bot.dialog('internet_instr',
         function (session) {
+            getData()
             var msg = TextCardBuilder(session, require('../../Data/upute.json').internet)
             session.endDialog(msg)
         }

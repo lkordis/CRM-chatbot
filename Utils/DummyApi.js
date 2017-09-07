@@ -1,11 +1,24 @@
 var request = require('request')
 
-module.exports.getData = url => {
-    console.log(url)
+module.exports.getData = (url, token = '') => {
+    var options = {
+        url: url,
+        headers: {
+            authorization: token
+        }
+    }
     return new Promise((resolve, reject) => {
-        request(url, function (error, response, body) {
+        request(options, function (error, response, body) {
             if (error) reject(error)
             resolve(JSON.parse(response.body))
         })
     })
+}
+
+module.exports.loginUrl = (address, dialog_name) => {
+    return `http://localhost:3000/login?data=${encodeURI(JSON.stringify({
+        redirect_url: 'http://localhost:80/login_callback',
+        address: address,
+        dialog_name: dialog_name
+    }))}`
 }

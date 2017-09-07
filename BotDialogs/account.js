@@ -3,8 +3,8 @@ var { SuggestedActionsBuilder } = require('../Utils/StructuredMessage')
 
 module.exports = [
     (session, args, next) => {
-        if (session.userData.logged_in) {
-            next(session.userData.username)
+        if (session.conversationData.loggedIn) {
+            next()
         } else {
             session.beginDialog('login', { dialog_name: 'account' })
         }
@@ -15,7 +15,7 @@ module.exports = [
                 { postback: 'kosarica_postback', title: 'Moja košarica' },
                 { postback: 'stanje_postback', title: 'Stanje računa' }
             ]
-        ).text(`Dobrodošli, ${session.userData.name}.`)
+        ).text(`Dobrodošli, ${session.conversationData.name}.`)
 
         session.send(msg).endDialog()
     }
