@@ -3,7 +3,9 @@ const { SuggestedActionsBuilder } = require('../Utils/StructuredMessage.js')
 module.exports =
     (session, results) => {
         if (results) {
-            switch (results.intent.entities[0].entity) {
+            var zahtjev = results.intent.entities.find(value => { return value.type === 'zahtjev_type' })
+            console.log(zahtjev)
+            switch (zahtjev.entity) {
                 case 'kvar':
                     session.replaceDialog('malfunction', results.intent)
                     break;

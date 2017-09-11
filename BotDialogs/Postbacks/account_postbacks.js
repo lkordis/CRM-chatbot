@@ -16,7 +16,7 @@ module.exports = bot => {
             DummyApi.getData(constants.account_url, session.conversationData.token)
                 .then(res => {
                     session.send(`Račun - ${res.cost}kn/mj`)
-                    var msg = Structured.TextCardBuilder(session, res.services).text("Vaše usluge")
+                    var msg = Structured.RichCardBuilder(session, res.products).text("Vaše usluge")
                     session.endDialog(msg)
                 })
         }

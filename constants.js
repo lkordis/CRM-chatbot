@@ -1,6 +1,9 @@
+const base_url = 'https://sedamitapi.localtunnel.me/'
+
 module.exports = {
-    product_url: "https://sedamitapi.localtunnel.me/products",
-    service_url: "https://sedamitapi.localtunnel.me/services",
-    support_url: "https://sedamitapi.localtunnel.me/support",
-    account_url: "https://sedamitapi.localtunnel.me/account"
+    product_url: `${base_url}products`,
+    service_url: `${base_url}services`,
+    support_url: `${base_url}faq`,
+    account_url: `${base_url}account`,
+    malfunction_url: `${base_url}malfunction`
 }

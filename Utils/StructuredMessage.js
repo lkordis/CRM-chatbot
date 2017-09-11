@@ -4,7 +4,6 @@ function RichCardBuilder(session, data) {
 
     var msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
-    console.log(data)
     msg.attachments(
         data.map(value => {
             return new builder.HeroCard(session)
