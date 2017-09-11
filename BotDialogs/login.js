@@ -13,8 +13,10 @@ module.exports = [
         else {
             var msg = new builder.Message(session)
                 .attachments([
-                    new builder.SigninCard(session).button('Prijava', loginUrl(session.message.address, args.dialog_name))
-                        .text('Moj račun')
+                    new builder.HeroCard(session).buttons([
+                        builder.CardAction.openUrl(session, loginUrl(session.message.address, args.dialog_name, 'login'), 'Prijava'),
+                        builder.CardAction.openUrl(session, loginUrl(session.message.address, args.dialog_name, 'register'), 'Registracija')
+                    ])
                 ])
             session.send(msg)
         }

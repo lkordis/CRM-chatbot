@@ -14,7 +14,7 @@ function RichCardBuilder(session, data) {
                 .subtitle(value.price)
                 .buttons([
                     builder.CardAction.openUrl(session, value.details_url, 'Detalji'),
-                    builder.CardAction.postBack(session, `${value.type}${value.id}`, 'Dodaj u košaricu')
+                    builder.CardAction.postBack(session, `cart${value._id}`, 'Dodaj u košaricu')
                 ])
                 .text(value.details)
         })

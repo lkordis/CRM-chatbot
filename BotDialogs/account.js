@@ -13,7 +13,8 @@ module.exports = [
         var msg = SuggestedActionsBuilder(session,
             [
                 { postback: 'kosarica_postback', title: 'Moja košarica' },
-                { postback: 'stanje_postback', title: 'Stanje računa' }
+                { postback: 'stanje_postback', title: 'Stanje računa' },
+                { postback: 'odjava_postback', title: 'Odjava' }
             ]
         ).text(`Dobrodošli, ${session.conversationData.name}.`)
 

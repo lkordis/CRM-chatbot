@@ -18,17 +18,25 @@ module.exports =
                 var ponuda_type = results.entities.find(value => {
                     return value.type === 'ponuda_type'
                 })
-                
+
                 if (ponuda_type) {
                     switch (ponuda_type.entity) {
                         case 'internet':
                             session.conversationData.type = 'internet'
                             break;
+                        case 'tv':
+                            session.conversationData.type = 'tv'
+                            break;
+                        case 'phone':
+                            session.conversationData.type = 'phone'
+                            break;
                         default:
                             break;
                     }
+                } else {
+                    // else kvar_postbacks ... endWithResults
+                    session.beginDialog('malfunction_postbacks')
                 }
-                // else kvar_postbacks ... endWithResults
             }
         },
         (session, args, next) => {

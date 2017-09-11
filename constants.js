@@ -5,5 +5,7 @@ module.exports = {
     service_url: `${base_url}services`,
     support_url: `${base_url}faq`,
     account_url: `${base_url}account`,
-    malfunction_url: `${base_url}malfunction`
+    malfunction_url: `${base_url}malfunction`,
+    cart_url: `${base_url}cart`,
+    cart_buy_url: `${base_url}cart/buy`
 }
