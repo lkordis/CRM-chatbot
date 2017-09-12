@@ -7,5 +7,6 @@ module.exports = {
     account_url: `${base_url}account`,
     malfunction_url: `${base_url}malfunction`,
     cart_url: `${base_url}cart`,
-    cart_buy_url: `${base_url}cart/buy`
+    cart_buy_url: `${base_url}cart/buy`,
+    faq_url: `${base_url}faq`
 }
