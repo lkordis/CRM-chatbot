@@ -41,6 +41,25 @@ function TextCardBuilder(session, data) {
     return msg
 }
 
+function ReceiptCardBuilder(session, data) {
+    var msg = new builder.Message(session);
+    msg.attachmentLayout(builder.AttachmentLayout.list)
+
+    msg.attachments([
+        new builder.ReceiptCard(session)
+            .title(`${data.user.profile.firstName} ${data.user.profile.lastName}`)
+            .facts([
+                builder.Fact.create(session, data.user.email, 'Email')
+            ])
+            .items(data.products.map(p => {
+                return builder.ReceiptItem.create(session, p.price, p.title).quantity(1)
+            }))
+            .total(data.cost)]
+    )
+
+    return msg
+}
+
 function SuggestedActionsBuilder(session, data) {
     var msg = new builder.Message(session)
 
@@ -64,5 +83,6 @@ function SuggestedActionsBuilder(session, data) {
 module.exports = {
     RichCardBuilder: RichCardBuilder,
     SuggestedActionsBuilder: SuggestedActionsBuilder,
-    TextCardBuilder: TextCardBuilder
+    TextCardBuilder: TextCardBuilder,
+    ReceiptCardBuilder: ReceiptCardBuilder
 }

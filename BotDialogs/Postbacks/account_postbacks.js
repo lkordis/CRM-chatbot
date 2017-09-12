@@ -31,9 +31,10 @@ module.exports = bot => {
         function (session) {
             DummyApi.getData(constants.account_url, session.conversationData.token)
                 .then(res => {
-                    session.send(`Račun - ${res.cost}kn/mj`)
-                    var msg = Structured.RichCardBuilder(session, res.products).text("Vaše usluge")
-                    session.endDialog(msg)
+                    var msg = Structured.ReceiptCardBuilder(session, res).text("Vaše usluge")
+                    // session.send(`Račun - ${res.cost}kn/mj`)
+                    // var msg = Structured.RichCardBuilder(session, res.products).text("Vaše usluge")
+                    session.send(msg).endDialog()
                 })
         }
     ).triggerAction({
@@ -43,7 +44,6 @@ module.exports = bot => {
     bot.dialog('odjava_postback',
         function (session) {
             session.conversationData = {}
-            console.log("TU sam")
             session.endDialog("Odjava izvršena")
         }
     ).triggerAction({
