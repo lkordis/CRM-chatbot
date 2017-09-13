@@ -1,4 +1,5 @@
-var request = require('request')
+var request = require('request'),
+    constants = require('../constants')
 
 module.exports.getData = (url, token = '') => {
     var options = {
@@ -48,8 +49,8 @@ module.exports.deleteData = (url, token) => {
 }
 
 module.exports.loginUrl = (address, dialog_name, type) => {
-    return `https://sedam-it-bot.herokuapp.com/${type}?data=${encodeURI(JSON.stringify({
-        redirect_url: 'http://localhost:80/login_callback',
+    return `${constants.base_url}/${type}?data=${encodeURI(JSON.stringify({
+        redirect_url: 'https://sedam-it-bot.herokuapp.com',
         address: address,
         dialog_name: dialog_name
     }))}`
