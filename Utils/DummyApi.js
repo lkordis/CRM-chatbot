@@ -48,7 +48,7 @@ module.exports.deleteData = (url, token) => {
 }
 
 module.exports.loginUrl = (address, dialog_name, type) => {
-    return `http://localhost:3000/${type}?data=${encodeURI(JSON.stringify({
+    return `https://sedam-it-bot.herokuapp.com/${type}?data=${encodeURI(JSON.stringify({
         redirect_url: 'http://localhost:80/login_callback',
         address: address,
         dialog_name: dialog_name

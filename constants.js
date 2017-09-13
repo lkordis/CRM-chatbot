@@ -1,4 +1,4 @@
-const base_url = 'https://sedamitapi.localtunnel.me/'
+const base_url = 'https://sedamitapi.now.sh/'
 
 module.exports = {
     product_url: `${base_url}products`,
@@ -8,5 +8,6 @@ module.exports = {
     malfunction_url: `${base_url}malfunction`,
     cart_url: `${base_url}cart`,
     cart_buy_url: `${base_url}cart/buy`,
-    faq_url: `${base_url}faq`
+    faq_url: `${base_url}faq`,
+    base_url: base_url
 }
