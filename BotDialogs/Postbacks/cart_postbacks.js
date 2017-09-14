@@ -5,13 +5,14 @@ module.exports = bot => {
     bot.dialog('add_to_cart_postback', [
         (session, args, next) => {
             if (session.conversationData.loggedIn) {
+                console.log(args)
                 next(args)
             } else {
-                session.beginDialog('login', { dialog_name: 'add_to_cart_postback' })
+                session.beginDialog('login', { dialog_name: 'add_to_cart_postback', matched: args.intent.matched[0] })
             }
         },
         (session, args) => {
-            var id = args.intent.matched[0].substring(4)
+            var id = args.matched.substring(4)
             var data = postData(constants.cart_url, { item: id }, session.conversationData.token)
                 .then(data => {
                     session.endDialog(`Paket ${data.title} dodan u košaricu.`)

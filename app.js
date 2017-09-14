@@ -11,11 +11,12 @@ server.listen(process.env.port || process.env.PORT || 80, function () {
 // Listen for messages from users 
 server.post('/api/messages', bot.connector('*').listen());
 
-//OAuth Google+ login
+//login
 server.post('/login_callback', (req, res, next) => {
+    console.log(req.query.data)
     var address = JSON.parse(req.query.data).address
     var dialog_name = JSON.parse(req.query.data).dialog_name
-    
+
     bot.beginDialog(address, 'login', JSON.parse(req.query.data))
     res.send(200)
 })
