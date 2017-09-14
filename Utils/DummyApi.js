@@ -50,7 +50,7 @@ module.exports.deleteData = (url, token) => {
 var url = 'https://sedam-it-bot.herokuapp.com/login_callback'
 module.exports.loginUrl = (address, dialog_name, type, args = '') => {
     return `${constants.base_url}/${type}?data=${encodeURI(JSON.stringify({
-        redirect_url: 'https://sedamitbot.localtunnel.me/login_callback',
+        redirect_url: url,
         address: address,
         dialog_name: dialog_name,
         matched: args
