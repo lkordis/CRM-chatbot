@@ -15,7 +15,7 @@ module.exports = bot => {
             var id = args.matched.substring(4)
             var data = postData(constants.cart_url, { item: id }, session.conversationData.token)
                 .then(data => {
-                    session.endDialog(`Paket ${data.title} dodan u košaricu.`)
+                    session.endDialog(`Paket dodan u košaricu.`)
                 })
         }])
         .triggerAction({

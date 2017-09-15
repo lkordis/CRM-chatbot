@@ -1,4 +1,4 @@
-const base_url = 'https://sedamitapi.now.sh'
+const base_url = 'https://sedam-it-api.herokuapp.com'
 
 module.exports = {
     product_url: `${base_url}/products`,
