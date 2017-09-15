@@ -5,7 +5,7 @@
   + [Domena bota i tok razgovora](https://github.com/lkordis/CRM-chatbot#domena-bota-i-tok-razgovora)
   + [Korištene tehnologije](https://github.com/lkordis/CRM-chatbot#koristene-tehnologije)
     + [Microsoft Bot Framework](https://github.com/lkordis/CRM-chatbot#microsoft-bot-framework)
-    + [Wit.ai](https://github.com/lkordis/CRM-chatbot#wit.ai)
+    + [Wit.ai](https://github.com/lkordis/CRM-chatbot#witai)
   + [Arhitektura sustava](https://github.com/lkordis/CRM-chatbot#arhitektura-sustava)
   + [Implementacija](https://github.com/lkordis/CRM-chatbot#implementacija-sustava)
     + [Prijava korisnika](https://github.com/lkordis/CRM-chatbot#prijava-korisnika)
