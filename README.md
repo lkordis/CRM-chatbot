@@ -1,16 +1,24 @@
 # CRM-chatbot
-CRM chatbot
+
+## Instalacija
+
+### Preduvjeti
+
++ Node.js verzija v7.8.0
++ npm verzija 4.2.0
+
+Za instalaciju projekta potrebno je upisati ```npm install``` u terminal, pričekati instalaciju svih paketa i zatim upisati ``` npm run dev ``` za pokretanje projekta u dev okruženju.
 
 ## Definicija sustava
 
-### 1. Domena bota i tok razgovora
+### Domena bota i tok razgovora
 
 Prvi korak u kreiranju chatbota je odabir teme razgovora i osmišljavanje toka razgovora. Veoma je važno definirati znanje bota i njegovu domenu. Konkretno sam u primjerima podatke o ponudama, cijenama i čestim pitanjima koristio podatke s Iskonovog portala. Sa znanjem o domeni i podacima sljedeće je potrebno osmisliti i kreirati osnovni tok razgovora. Na priloženom dijagramu nalazi se prikaz toka razgovora koji je podijeljen na temeljne cjeline.
 
 ![alt text](https://github.com/lkordis/CRM-chatbot/blob/master/Assets/bot_diagram.png "Bot diagram")
 
 
-### 2. Korištene tehnologije
+### Korištene tehnologije
 
 #### Microsoft Bot Framework
 
@@ -37,15 +45,16 @@ Wit.ai je alat za obradu prirodnog jezika (NLP) u vlasništvu Facebooka. NLP je 
 Wit.ai se uči i trenira na temelju upisanih rečenica i označavanja ključnih riječi i sinonima. Prilikom upita na api wit.ai, rezultat je popis entiteta koje je wit.ai prepoznao.
 
 Više informacija na https://wit.ai/docs/quickstart
+
 Wit.ai postavke za projekt https://wit.ai/lkordis/SedamIT
 
-### 3. Arhitektura sustava
+### Arhitektura sustava
 
 Arhitektura sustava se bazira na 3 komponente. Bot preko HTTP poziva prilikom svake primljene poruke komunicira sa WIt.ai alatom za obradu prirodnog jezika, koji šalje podatke o poruci u obliku JSON-a. Ako je potrebno pristupiti podacima iz baze podataka, bot šalje GET ili POST pozive CRM API-u.
 
 ![alt text](https://github.com/lkordis/CRM-chatbot/blob/master/Assets/architecture.png "Bot architecture")
 
-### 4. Implementacija sustava
+### Implementacija sustava
 
 Kako se kao tzv. ‘middleware’ koristi WIt.ai, obrada primljenih poruka se sastoji od kombinacije alata za obradu prirodnog jezika i ponuđenih odgovora kako bi se nastavio tok razovora. Svaka primljena poruka šalje se Wit.ai na obradu. Na temelju informacija iz obrađene poruke pokreće se određeni dijalog. U Microsoft Bot radnom okviru moguće je na niz načina pokrenuti novi dijalog:
 + Naredbom beginDialog() - briše se razgovorni stog i na vrh se stavlja željeni dijalog
@@ -69,4 +78,13 @@ Microsoft bot radni okvir nudi slanje posebnog oblika poruke koji je namijenjen 
 Korisnik pritiskom na gumb ‘Prijava’ pristupa stranici za prijavu. Nakon upisa podataka i potvrde o uspješnoj prijavi, bot u unutarnje stanje sprema token prijave, koji dalje koristi pri upitima koji zahtijevaju autentifikaciju.
 
 
-### 5. Struktura datoteka
+### Struktura datoteka
+
+Početna točka projekta je datoteka app.js u kojoj se nalaze osnovne postavke servera. U datoteci bot.js nalazi se početna točka chatbota, gdje su definirani i imenovani sve dijalozi i ključne riječi, kao i postavljen wit.ai kao alat za obradu prirodnog jezika.
+
+Osnovni dijalozi su definirani u mapi BotDialogs, dok se u podmapi Postbacks nalaze dijalozi koji se pokreću pritiskom na gumb i slanje postback poruke.
+
+U mapi Utils nalaze se pomoćne klase i metode, kao što je datoteka StructuredMessage, gdje se nalaze metode za stvaranje “bogatih” poruka, i datoteka DummyApi, koja pristupa testnom Api-u i nudi metode za POST, GET i DELETE pozive.
+
+U mapi  Assets se nalaze slike potrebne za stvaranje README datoteke za github stranicu projekta
+
