@@ -1,5 +1,16 @@
 # CRM-chatbot
 
++ [Instalacija](https://github.com/lkordis/CRM-chatbot#instalacija)
++ [Definicija sustava](https://github.com/lkordis/CRM-chatbot#definicija-sustava)
+  + [Domena bota i tok razgovora](https://github.com/lkordis/CRM-chatbot#domena-bota-i-tok-razgovora)
+  + [Korištene tehnologije](https://github.com/lkordis/CRM-chatbot#koristene-tehnologije)
+    + [Microsoft Bot Framework](https://github.com/lkordis/CRM-chatbot#microsoft-bot-framework)
+    + [Wit.ai](https://github.com/lkordis/CRM-chatbot#wit.ai)
+  + [Arhitektura sustava](https://github.com/lkordis/CRM-chatbot#arhitektura-sustava)
+  + [Implementacija](https://github.com/lkordis/CRM-chatbot#implementacija-sustava)
+    + [Prijava korisnika](https://github.com/lkordis/CRM-chatbot#prijava-korisnika)
+  + [Struktura datoteka](https://github.com/lkordis/CRM-chatbot#struktura-datoteka)
+
 ## Instalacija
 
 ### Preduvjeti
